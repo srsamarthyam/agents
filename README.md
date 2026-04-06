@@ -38,7 +38,9 @@ A web-based tic-tac-toe game with multiple AI agent skill levels, analyzer and s
 
 ### LLM Setup (Optional)
 
-**Note:** The game works perfectly without an LLM! All AI agents and analysis features have built-in implementations. LLM integration is optional for enhanced insights.
+**Important:** The game works perfectly **without an LLM**! All 6 AI player agents, the Analyzer agent, and Strategy agent have complete built-in implementations. You can play immediately without any additional setup.
+
+LLM integration is **purely optional** and only provides enhanced natural language insights in the analysis panels.
 
 If you want to enable LLM-enhanced analysis:
 
@@ -48,18 +50,25 @@ If you want to enable LLM-enhanced analysis:
    ollama serve
    ollama run llama2
    ```
+
 2. In the game UI:
    - Set LLM URL (default: `http://localhost:11434`)
    - Set model name (default: `llama2` or any available model)
    - Click "Test Connection"
-   - If connection fails, the game will continue using built-in analysis
-3. Enable Analyzer/Strategy agents to see LLM-enhanced insights (when connected)
+   - Status will show "✓ Connected to LLM" if successful
+   - If connection fails, the game continues using built-in analysis
+
+3. Enable Analyzer/Strategy agents to see insights:
+   - Without LLM: Built-in rule-based analysis
+   - With LLM: Enhanced natural language explanations
 
 **Troubleshooting LLM Connection:**
-- Ensure the LLM server is running on the specified port
-- Check browser console for detailed error messages
-- Try different models if one is unavailable
-- The game automatically falls back to built-in analysis if LLM is unreachable
+- **Ollama not installed?** Download from [ollama.com](https://ollama.com)
+- **Server not running?** Start with `ollama serve`
+- **Wrong port?** Default is 11434, check your config
+- **Model unavailable?** Try a different model name
+- **CORS issues?** Some browsers block localhost requests; try Firefox or disable CORS for testing
+- **Connection still failing?** The game works great without LLM - all features are fully functional!
 
 ### Curriculum-Based Learning
 Each AI level includes specific learning tips:
