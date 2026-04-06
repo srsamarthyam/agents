@@ -634,26 +634,34 @@ class TicTacToe {
                     model: model,
                     prompt: 'Say "hello"',
                     stream: false
-                })
+                }),
+                signal: AbortSignal.timeout(5000) // 5 second timeout
             });
             
             if (response.ok) {
                 statusDiv.textContent = '✓ Connected to LLM';
                 statusDiv.classList.add('connected');
+                statusDiv.classList.remove('disconnected');
                 this.llmUrl = url;
                 this.llmModel = model;
                 this.logMessage('System', 'LLM connection established!', 'system');
             } else {
-                throw new Error('Connection failed');
+                throw new Error(`HTTP ${response.status}`);
             }
         } catch (error) {
             statusDiv.textContent = '✗ Connection failed';
             statusDiv.classList.add('disconnected');
-            this.logMessage('System', 'Failed to connect to LLM', 'system');
+            statusDiv.classList.remove('connected');
+            console.warn('LLM connection failed:', error.message);
+            this.logMessage('System', `LLM unavailable: ${error.message}. Game will work with built-in agents only.`, 'system');
         }
     }
     
     async queryLLM(prompt) {
+        if (!this.isLLMAvailable()) {
+            return null;
+        }
+        
         try {
             const response = await fetch(`${this.llmUrl}/api/generate`, {
                 method: 'POST',
@@ -662,18 +670,33 @@ class TicTacToe {
                     model: this.llmModel,
                     prompt: prompt,
                     stream: false,
-                    max_tokens: 200
-                })
+                    max_tokens: 300
+                }),
+                signal: AbortSignal.timeout(10000) // 10 second timeout
             });
             
             if (response.ok) {
                 const data = await response.json();
                 return data.response || data.text || '';
+            } else {
+                console.warn('LLM query failed with status:', response.status);
+                this.handleLLMError();
             }
         } catch (error) {
-            console.error('LLM query failed:', error);
+            console.warn('LLM query error:', error.message);
+            this.handleLLMError();
         }
         return null;
+    }
+    
+    handleLLMError() {
+        const statusDiv = document.getElementById('llm-status');
+        if (statusDiv) {
+            statusDiv.textContent = '✗ Connection lost';
+            statusDiv.classList.add('disconnected');
+            statusDiv.classList.remove('connected');
+        }
+        this.logMessage('System', 'LLM connection lost. Using built-in analysis.', 'system');
     }
     
     logMessage(sender, message, type = 'system') {

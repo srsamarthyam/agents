@@ -37,6 +37,11 @@ A web-based tic-tac-toe game with multiple AI agent skill levels, analyzer and s
 5. Start playing!
 
 ### LLM Setup (Optional)
+
+**Note:** The game works perfectly without an LLM! All AI agents and analysis features have built-in implementations. LLM integration is optional for enhanced insights.
+
+If you want to enable LLM-enhanced analysis:
+
 1. Install and run a local LLM server (e.g., Ollama):
    ```bash
    # Example with Ollama
@@ -45,9 +50,16 @@ A web-based tic-tac-toe game with multiple AI agent skill levels, analyzer and s
    ```
 2. In the game UI:
    - Set LLM URL (default: `http://localhost:11434`)
-   - Set model name (default: `llama2`)
+   - Set model name (default: `llama2` or any available model)
    - Click "Test Connection"
-3. Enable Analyzer/Strategy agents to see LLM-enhanced insights
+   - If connection fails, the game will continue using built-in analysis
+3. Enable Analyzer/Strategy agents to see LLM-enhanced insights (when connected)
+
+**Troubleshooting LLM Connection:**
+- Ensure the LLM server is running on the specified port
+- Check browser console for detailed error messages
+- Try different models if one is unavailable
+- The game automatically falls back to built-in analysis if LLM is unreachable
 
 ### Curriculum-Based Learning
 Each AI level includes specific learning tips:
