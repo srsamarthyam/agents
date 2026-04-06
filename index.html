@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe AI Arena</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Tic-Tac-Toe AI Arena</h1>
+            <p class="subtitle">Play against AI agents with varying skill levels</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Game Board Section -->
+            <section class="game-section">
+                <div class="board-container">
+                    <div id="game-board" class="board">
+                        <div class="cell" data-index="0"></div>
+                        <div class="cell" data-index="1"></div>
+                        <div class="cell" data-index="2"></div>
+                        <div class="cell" data-index="3"></div>
+                        <div class="cell" data-index="4"></div>
+                        <div class="cell" data-index="5"></div>
+                        <div class="cell" data-index="6"></div>
+                        <div class="cell" data-index="7"></div>
+                        <div class="cell" data-index="8"></div>
+                    </div>
+                </div>
+                <div id="game-status" class="game-status">Select an opponent to start!</div>
+                <button id="reset-btn" class="btn btn-primary">New Game</button>
+            </section>
+
+            <!-- Controls Section -->
+            <section class="controls-section">
+                <div class="control-panel">
+                    <h2>🤖 Select Opponent</h2>
+                    <select id="ai-level" class="select-input">
+                        <option value="beginner">Beginner (Random Moves)</option>
+                        <option value="easy">Easy (Basic Strategy)</option>
+                        <option value="medium">Medium (Intermediate)</option>
+                        <option value="hard">Hard (Advanced)</option>
+                        <option value="expert">Expert (Near Perfect)</option>
+                        <option value="unbeatable">Unbeatable (Minimax)</option>
+                    </select>
+
+                    <h2>🎯 Your Side</h2>
+                    <select id="player-side" class="select-input">
+                        <option value="X">Play as X (First)</option>
+                        <option value="O">Play as O (Second)</option>
+                    </select>
+
+                    <h2>🧠 AI Agents</h2>
+                    <div class="agent-controls">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="enable-analyzer">
+                            Enable Analyzer Agent
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="enable-strategy">
+                            Enable Strategy Agent
+                        </label>
+                    </div>
+
+                    <h2>🌐 LLM Settings</h2>
+                    <div class="llm-settings">
+                        <input type="text" id="llm-url" placeholder="LLM API URL" value="http://localhost:11434">
+                        <input type="text" id="llm-model" placeholder="Model Name" value="llama2">
+                        <button id="test-llm" class="btn btn-secondary">Test Connection</button>
+                        <div id="llm-status" class="llm-status"></div>
+                    </div>
+                </div>
+
+                <!-- Analysis Panel -->
+                <div id="analysis-panel" class="analysis-panel hidden">
+                    <h3>🔍 Game Analysis</h3>
+                    <div id="analyzer-output" class="analysis-output"></div>
+                </div>
+
+                <!-- Strategy Panel -->
+                <div id="strategy-panel" class="strategy-panel hidden">
+                    <h3>💡 Strategy Suggestions</h3>
+                    <div id="strategy-output" class="strategy-output"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Game Log -->
+        <section class="log-section">
+            <h2>📜 Game Log</h2>
+            <div id="game-log" class="game-log"></div>
+        </section>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
